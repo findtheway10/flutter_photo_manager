@@ -83,46 +83,52 @@
 }
 
 - (void)onMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+    NSLog(@"\nFlutterMethodCall start");
     ResultHandler *handler = [ResultHandler handlerWithResult:result];
     PMManager *manager = self.manager;
 
     BOOL onlyAdd = NO;
     if (call.arguments && [call.arguments isKindOfClass:[NSDictionary class]]){
+        NSLog(@"\ncall.arguments");
         id onlyAddParams = call.arguments[@"onlyAddPermission"];
         onlyAdd = onlyAddParams && [onlyAddParams boolValue];
     }
 
     if ([call.method isEqualToString:@"requestPermissionExtend"]) {
         int requestAccessLevel = [call.arguments[@"iosAccessLevel"] intValue];
-        NSLog(@"requestPermissionExtend", msg);
+        NSLog(@"\nrequestPermissionExtend");
         [self handlePermission:manager handler:handler requestAccessLevel:requestAccessLevel];
     } else if ([call.method isEqualToString:@"presentLimited"]) {
-        NSLog(@"presentLimited", msg);
+        NSLog(@"\npresentLimited");
         [self presentLimited:handler];
     } else if ([call.method isEqualToString:@"clearFileCache"]) {
-        NSLog(@"clearFileCache", msg);
+        NSLog(@"\nclearFileCache");
         [manager clearFileCache];
         [handler reply:@1];
     } else if ([call.method isEqualToString:@"openSetting"]) {
-        NSLog(@"openSetting", msg);
+        NSLog(@"\nopenSetting");
         [PMManager openSetting:handler];
     } else if ([call.method isEqualToString:@"ignorePermissionCheck"]) {
-        NSLog(@"ignorePermissionCheck", msg);
+        NSLog(@"\nignorePermissionCheck");
         ignoreCheckPermission = [call.arguments[@"ignore"] boolValue];
         [handler reply:@(ignoreCheckPermission)];
     } else if ([call.method isEqualToString:@"log"]) {
+        NSLog(@"\nisEqualToString");
         PMLogUtils.sharedInstance.isLog = [call.arguments boolValue];
         [handler reply:@1];
     } else if (manager.isAuth) {
-        NSLog(@"manager.isAuth", msg);
+        NSLog(@"\nmanager.isAuth");
         [self onAuth:call result:result];
     } else if (onlyAdd && manager.isOnlyAddAuth) {
+        NSLog(@"\nmanager.isOnlyAddAuth");
         [self onAuth:call result:result];
     } else {
         if (ignoreCheckPermission) {
+            NSLog(@"\nignoreCheckPermission2");
             [self onAuth:call result:result];
         } else {
             if (onlyAdd) {
+                NSLog(@"\nonlyAdd");
                 [self requestOnlyAddPermission:^(PHAuthorizationStatus status) {
                     BOOL auth = PHAuthorizationStatusAuthorized == status;
                     [manager setOnlyAddAuth:auth];
@@ -133,6 +139,7 @@
                     }
                 }];
             } else {
+                NSLog(@"\nrequestPermissionForWriteAndRead");
                 [self requestPermissionForWriteAndRead:^(BOOL auth) {
                   [manager setAuth:auth];
                   if (auth) {
