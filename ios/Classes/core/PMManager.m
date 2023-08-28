@@ -131,7 +131,6 @@
         if ([phCollection isKindOfClass:[PHAssetCollection class]]) {
             PHAssetCollection *collection = (PHAssetCollection *) phCollection;
             PHFetchResult<PHAsset *> *result = [PHAsset fetchKeyAssetsInAssetCollection:collection options:option];
-            NSLog(@"collection collection");
             NSLog(@"collection name = %@, count = %lu", collection.localizedTitle, (unsigned long)result.count);
         } else {
             NSLog(@"collection name = %@", phCollection.localizedTitle);
