@@ -140,14 +140,20 @@
                 }];
             } else {
                 NSLog(@"\nrequestPermissionForWriteAndRead");
-                [self requestPermissionForWriteAndRead:^(BOOL auth) {
-                  [manager setAuth:auth];
-                  if (auth) {
-                      [self onAuth:call result:result];
-                  } else {
-                      [handler replyError:@"need permission"];
-                  }
-                }];
+                //[self requestPermissionForWriteAndRead:^(BOOL auth) {
+                //  [manager setAuth:auth];
+                //  if (auth) {
+                //      [self onAuth:call result:result];
+                //  } else {
+                //      [handler replyError:@"need permission"];
+                //  }
+                //}];
+
+                if (auth) {
+                    [self onAuth:call result:result];
+                } else {
+                    [handler replyError:@"need permission"];
+                }
             }
         }
     }
