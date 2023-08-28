@@ -149,11 +149,11 @@
                 //  }
                 //}];
 
-                if (auth) {
-                    [self onAuth:call result:result];
-                } else {
-                    [handler replyError:@"need permission"];
-                }
+                //if (auth) {
+                //    [self onAuth:call result:result];
+                //} else {
+                //    [handler replyError:@"need permission"];
+                //}
             }
         }
     }
