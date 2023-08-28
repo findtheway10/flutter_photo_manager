@@ -139,10 +139,10 @@
                 //  }
                 //}];
 
-                //BOOL auth = YES;
-                                  //[manager setAuth: auth];
+                BOOL auth = YES;
+                                  [manager setAuth: auth];
                                   //if (auth) {
-                                      //NSLog(@"\nauth : true");
+                                      NSLog(@"\nauth : true");
                                       //[self onAuth:call result:result];
                                   //} else {
                                   //    NSLog(@"\nauth : false");
