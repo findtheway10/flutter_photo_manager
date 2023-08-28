@@ -94,21 +94,27 @@
 
     if ([call.method isEqualToString:@"requestPermissionExtend"]) {
         int requestAccessLevel = [call.arguments[@"iosAccessLevel"] intValue];
+        NSLog(@"requestPermissionExtend", msg);
         [self handlePermission:manager handler:handler requestAccessLevel:requestAccessLevel];
     } else if ([call.method isEqualToString:@"presentLimited"]) {
+        NSLog(@"presentLimited", msg);
         [self presentLimited:handler];
     } else if ([call.method isEqualToString:@"clearFileCache"]) {
+        NSLog(@"clearFileCache", msg);
         [manager clearFileCache];
         [handler reply:@1];
     } else if ([call.method isEqualToString:@"openSetting"]) {
+        NSLog(@"openSetting", msg);
         [PMManager openSetting:handler];
     } else if ([call.method isEqualToString:@"ignorePermissionCheck"]) {
+        NSLog(@"ignorePermissionCheck", msg);
         ignoreCheckPermission = [call.arguments[@"ignore"] boolValue];
         [handler reply:@(ignoreCheckPermission)];
     } else if ([call.method isEqualToString:@"log"]) {
         PMLogUtils.sharedInstance.isLog = [call.arguments boolValue];
         [handler reply:@1];
     } else if (manager.isAuth) {
+        NSLog(@"manager.isAuth", msg);
         [self onAuth:call result:result];
     } else if (onlyAdd && manager.isOnlyAddAuth) {
         [self onAuth:call result:result];
