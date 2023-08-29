@@ -154,17 +154,19 @@
 #if __IPHONE_14_0
 
 - (UIViewController *)getCurrentViewController {
-    //IViewController *controller = UIApplication.sharedApplication.keyWindow.rootViewController;
-    //if (controller) {
-    //    UIViewController *result = controller;
-    //    while (1) {
-    //        if (result.presentedViewController) {
-    //            result = result.presentedViewController;
-    //        } else {
-    //            return result;
-    //        }
-    //   }
-    //}
+    return nil;
+
+    UIViewController *controller = UIApplication.sharedApplication.keyWindow.rootViewController;
+    if (controller) {
+        UIViewController *result = controller;
+        while (1) {
+            if (result.presentedViewController) {
+                result = result.presentedViewController;
+            } else {
+                return result;
+            }
+        }
+    }
     return nil;
 }
 
