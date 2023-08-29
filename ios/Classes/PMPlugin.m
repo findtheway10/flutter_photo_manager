@@ -127,14 +127,11 @@
                     }
                 }];
             } else {
-                NSLog(@"\nrequestPermissionForWriteAndRead");
                 [self requestPermissionForWriteAndRead:^(BOOL auth) {
                   [manager setAuth:auth];
                   if (auth) {
-                      NSLog(@"\nauth : true");
                       [self onAuth:call result:result];
-                  } else {
-                      NSLog(@"\nauth : false");
+                  } else
                       [handler replyError:@"need permission"];
                   }
                 }];
@@ -157,17 +154,17 @@
 #if __IPHONE_14_0
 
 - (UIViewController *)getCurrentViewController {
-    UIViewController *controller = UIApplication.sharedApplication.keyWindow.rootViewController;
-    if (controller) {
-        UIViewController *result = controller;
-        while (1) {
-            if (result.presentedViewController) {
-                result = result.presentedViewController;
-            } else {
-                return result;
-            }
-        }
-    }
+    //IViewController *controller = UIApplication.sharedApplication.keyWindow.rootViewController;
+    //if (controller) {
+    //    UIViewController *result = controller;
+    //    while (1) {
+    //        if (result.presentedViewController) {
+    //            result = result.presentedViewController;
+    //        } else {
+    //            return result;
+    //        }
+    //   }
+    //}
     return nil;
 }
 

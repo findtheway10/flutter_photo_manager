@@ -64,7 +64,6 @@
                               subtype:PHAssetCollectionSubtypeAny
                               options:fetchCollectionOptions];
     if (onlyAll) {
-        NSLog(@"\nonlyAll");
         if (smartAlbumResult && smartAlbumResult.count) {
             for (PHAssetCollection *collection in smartAlbumResult) {
                 if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
