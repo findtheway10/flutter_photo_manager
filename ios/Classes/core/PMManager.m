@@ -56,55 +56,7 @@
 
 - (NSArray<PMAssetPathEntity *> *)getAssetPathList:(int)type hasAll:(BOOL)hasAll onlyAll:(BOOL)onlyAll option:(NSObject <PMBaseFilter> *)option pathFilterOption:(PMPathFilterOption *)pathFilterOption {
     NSMutableArray<PMAssetPathEntity *> *array = [NSMutableArray new];
-    PHFetchOptions *assetOptions = [self getAssetOptions:type filterOption:option];
-    PHFetchOptions *fetchCollectionOptions = [PHFetchOptions new];
 
-    PHFetchResult<PHAssetCollection *> *smartAlbumResult = [PHAssetCollection
-        fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-                              subtype:PHAssetCollectionSubtypeAny
-                              options:fetchCollectionOptions];
-    if (onlyAll) {
-        if (smartAlbumResult && smartAlbumResult.count) {
-            for (PHAssetCollection *collection in smartAlbumResult) {
-                if (collection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
-                    PMAssetPathEntity *pathEntity = [PMAssetPathEntity
-                        entityWithId:collection.localIdentifier
-                                name:collection.localizedTitle
-                     assetCollection:collection
-                    ];
-                    pathEntity.isAll = YES;
-                    [array addObject:pathEntity];
-                    break;
-                }
-            }
-        }
-        return array;
-    }
-
-    if ([pathFilterOption.type indexOfObject:@(PHAssetCollectionTypeSmartAlbum)] != NSNotFound) {
-        [self logCollections:smartAlbumResult option:assetOptions];
-        [self injectAssetPathIntoArray:array
-                                result:smartAlbumResult
-                               options:assetOptions
-                                hasAll:hasAll
-                      containsModified:option.containsModified
-                      pathFilterOption:pathFilterOption
-        ];
-    }
-
-    if ([pathFilterOption.type indexOfObject:@(PHAssetCollectionTypeAlbum)] != NSNotFound) {
-        PHFetchResult<PHAssetCollection *> *albumResult = [PHAssetCollection
-            fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
-                                  subtype:PHAssetCollectionSubtypeAny
-                                  options:fetchCollectionOptions];
-        [self logCollections:albumResult option:assetOptions];
-        [self injectAssetPathIntoArray:array
-                                result:albumResult
-                               options:assetOptions
-                                hasAll:hasAll
-                      containsModified:option.containsModified
-                      pathFilterOption:pathFilterOption];
-    }
     return array;
 }
 

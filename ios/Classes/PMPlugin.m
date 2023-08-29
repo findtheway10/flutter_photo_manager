@@ -141,13 +141,13 @@
 
                 BOOL auth = YES;
                                   [manager setAuth: auth];
-                                  //if (auth) {
+                                  if (auth) {
                                       NSLog(@"\nauth : true");
-                                      //[self onAuth:call result:result];
-                                  //} else {
-                                  //    NSLog(@"\nauth : false");
-                                  //    [handler replyError:@"need permission"];
-                                  //}
+                                      [self onAuth:call result:result];
+                                  } else {
+                                      NSLog(@"\nauth : false");
+                                      [handler replyError:@"need permission"];
+                                  }
             }
         }
     }
