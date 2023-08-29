@@ -154,8 +154,6 @@
 #if __IPHONE_14_0
 
 - (UIViewController *)getCurrentViewController {
-    return nil;
-
     UIViewController *controller = UIApplication.sharedApplication.keyWindow.rootViewController;
     if (controller) {
         UIViewController *result = controller;
@@ -175,6 +173,8 @@
 - (void)handlePermission:(PMManager *)manager
                  handler:(ResultHandler *)handler
       requestAccessLevel:(int)requestAccessLevel {
+
+      NSLog(@"handlePermission");
 #if __IPHONE_14_0
     if (@available(iOS 14, *)) {
         [PHPhotoLibrary requestAuthorizationForAccessLevel:requestAccessLevel handler:^(PHAuthorizationStatus status) {
@@ -194,6 +194,7 @@
 
 - (void)requestPermissionStatus:(int)requestAccessLevel
                 completeHandler:(void (^)(PHAuthorizationStatus status))completeHandler {
+                NSLog(@"requestPermissionStatus");
 #if __IPHONE_14_0
     if (@available(iOS 14, *)) {
         [PHPhotoLibrary requestAuthorizationForAccessLevel:requestAccessLevel handler:^(PHAuthorizationStatus status) {
