@@ -173,8 +173,6 @@
 - (void)handlePermission:(PMManager *)manager
                  handler:(ResultHandler *)handler
       requestAccessLevel:(int)requestAccessLevel {
-
-      NSLog(@"handlePermission");
 #if __IPHONE_14_0
     if (@available(iOS 14, *)) {
         [PHPhotoLibrary requestAuthorizationForAccessLevel:requestAccessLevel handler:^(PHAuthorizationStatus status) {
@@ -194,7 +192,6 @@
 
 - (void)requestPermissionStatus:(int)requestAccessLevel
                 completeHandler:(void (^)(PHAuthorizationStatus status))completeHandler {
-                NSLog(@"requestPermissionStatus");
 #if __IPHONE_14_0
     if (@available(iOS 14, *)) {
         [PHPhotoLibrary requestAuthorizationForAccessLevel:requestAccessLevel handler:^(PHAuthorizationStatus status) {
@@ -314,17 +311,7 @@
 
 - (void)handleMethodResult:(FlutterMethodCall *)call handler:(ResultHandler *)handler manager:(PMManager *)manager notificationManager:(PMNotificationManager *)notificationManager {
     if ([call.method isEqualToString:@"getAssetPathList"]) {
-        int type = [call.arguments[@"type"] intValue];
-        BOOL hasAll = [call.arguments[@"hasAll"] boolValue];
-        BOOL onlyAll = [call.arguments[@"onlyAll"] boolValue];
-        NSObject <PMBaseFilter> *option =
-            [PMConvertUtils convertMapToOptionContainer:call.arguments[@"option"]];
 
-        PMPathFilterOption *pathFilterOption = [PMPathFilterOption optionWithDict:call.arguments[@"pathOption"]];
-
-        NSArray<PMAssetPathEntity *> *array = [manager getAssetPathList:type hasAll:hasAll onlyAll:onlyAll option:option pathFilterOption:pathFilterOption];
-        NSDictionary *dictionary = [PMConvertUtils convertPathToMap:array];
-        [handler reply:dictionary];
     } else if ([call.method isEqualToString:@"getAssetCountFromPath"]) {
         NSString *id = call.arguments[@"id"];
         int requestType = [call.arguments[@"type"] intValue];
