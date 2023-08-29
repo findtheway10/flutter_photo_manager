@@ -131,7 +131,7 @@
                   [manager setAuth:auth];
                   if (auth) {
                       [self onAuth:call result:result];
-                  } else
+                  } else {
                       [handler replyError:@"need permission"];
                   }
                 }];
